@@ -1,8 +1,8 @@
-# DynX: Graphical Modular Dynamic Programming
+# DynX: Modular Dynamic Programming
 
 ⚠️ **Experimental Development Build** – APIs and documentation are incomplete.⚠️ 
 
-DynX is framework for representing functional operations on arbitrary topological vector space as a graph.
+DynX is framework for representing functional operations ("modules") on arbitrary topological vector space as a graph.
 The focus of is on a practical (that is, computable) and unified
 graph representation of Bellman functional recursions and push-forward measures.
 
