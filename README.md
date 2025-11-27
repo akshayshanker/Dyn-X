@@ -3,8 +3,7 @@
 ⚠️ **Experimental Development Build** – APIs and documentation are incomplete.⚠️ 
 
 DynX is framework for representing conjugate pairs of functional operations ("modules") on arbitrary topological vector space as a graph.
-The focus of is on a practical (that is, computable) and unified
-graph representation of Bellman functional recursions and push-forward measures.
+The focus of is on a practical (that is, computable) rather than theoretical representation of Bellman functional recursions and push-forward measures.
 
 The use of graphs and networks to represent dynamics is ubiquitous (see [Auclert et al (2021)](https://web.stanford.edu/~aauclert/sequence_space_jacobian.pdf) or [Stachurski and Sargent (2025)](https://networks.quantecon.org/), for instance). 
 However, the critical innovation in DynX is to represent relations between **functional operations**, rather than relations between variables. 
