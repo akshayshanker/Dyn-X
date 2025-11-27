@@ -2,13 +2,13 @@
 
 ⚠️ **Experimental Development Build** – APIs and documentation are incomplete.⚠️ 
 
-DynX is a directed-acyclic-graph (DAG) framework for solving recursive
-dynamic models. 
+DynX is framework for representing functional operations on arbitrary topological vector space as a graph.
+The focus of is on a practical (that is, computable) and unified
+graph representation of Bellman functional recursions and push-forward measures.
 
-DynX provides a practical and unified
-graph representation of Bellman functional recursion (model solution) and push-forward distributions (model simulation) of a dynamic economic model. 
-
-Unlike general graph libraries (e.g. *TensorFlow*), DynX represents **both**
+The use of graphs and networks to represent dynamics is ubiquitous (see Auclert et al (2021)[https://web.stanford.edu/~aauclert/sequence_space_jacobian.pdf] or Stachurski and Sarget (2025)[https://networks.quantecon.org/], for instance). 
+However, the critical innovation in DynX is to represent functional operations, rather than relationships between variables. 
+Moreover, Unlike general graph libraries (e.g. *TensorFlow*), DynX represents **both**
 computational operators **and** the functional objects that define a
 recursive problem.
 
