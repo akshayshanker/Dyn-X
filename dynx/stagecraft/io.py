@@ -251,7 +251,24 @@ def save_circuit(
     target_dir = dest / model_id
     if target_dir.exists():
         logger.warning("Overwriting existing directory: %s", target_dir)
-        shutil.rmtree(target_dir)
+        # More robust directory removal
+        import time
+        max_attempts = 3
+        for attempt in range(max_attempts):
+            try:
+                shutil.rmtree(target_dir)
+                break
+            except OSError as e:
+                if attempt < max_attempts - 1:
+                    logger.warning(f"Failed to remove directory (attempt {attempt+1}): {e}")
+                    time.sleep(0.5)  # Wait a bit
+                    # Try to force cleanup
+                    gc.collect()
+                else:
+                    # Last attempt - try to rename instead
+                    backup_name = f"{target_dir}_{int(time.time())}_backup"
+                    logger.warning(f"Cannot remove directory, renaming to: {backup_name}")
+                    target_dir.rename(backup_name)
     target_dir.mkdir()
 
     # 1) copy configs verbatim

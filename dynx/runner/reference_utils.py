@@ -6,7 +6,7 @@ that have been previously solved and saved as bundles.
 """
 
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any, Optional, Dict, List
 import warnings
 import numpy as np
 

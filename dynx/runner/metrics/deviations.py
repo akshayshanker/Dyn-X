@@ -11,6 +11,7 @@ import numpy as np
 
 from dynx.runner.circuit_runner import CircuitRunner
 from dynx.runner.reference_utils import load_reference_model
+from dynx.runner.metric_requirements import get_metric_requirements
 
 
 import numpy as np
@@ -166,8 +167,16 @@ def make_policy_dev_metric(
         if _runner is None or _x is None:
             return np.nan
 
-        # Load reference model
-        ref_model = load_reference_model(_runner, _x)
+        # Get metric requirements for selective loading
+        metric_name = f"dev_{policy_attr}_{norm}"
+        periods_to_load, stages_to_load = get_metric_requirements([metric_name])
+        metric_requirements = {
+            'periods_to_load': periods_to_load,
+            'stages_to_load': stages_to_load
+        }
+        
+        # Load reference model with selective loading
+        ref_model = load_reference_model(_runner, _x, metric_requirements)
         if ref_model is None:
             return np.nan
 

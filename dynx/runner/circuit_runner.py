@@ -489,7 +489,14 @@ class CircuitRunner:
         # ------------------------------------------------------------
         metrics: Dict[str, Any] = {}
         if rank == 0:
-                    # Pre-compute metric signatures for efficiency
+            # Import reference cache management
+            try:
+                from dynx.runner.reference_cache import release_strong_references
+                has_ref_cache = True
+            except ImportError:
+                has_ref_cache = False
+                
+            # Pre-compute metric signatures for efficiency
             import inspect
 
             metric_signatures = {}
@@ -523,6 +530,10 @@ class CircuitRunner:
                     except Exception as e2:
                         warnings.warn(f"Metric {name} failed completely: {e2}")
                         metrics[name] = np.nan
+            
+            # Release reference model cache after all metrics computed
+            if has_ref_cache:
+                release_strong_references()
 
         # ------------------------------------------------------------
         return (metrics, model) if return_model else (metrics, None)
