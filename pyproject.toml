@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "dynx"
 # development snapshot
-version = "0.18.dev0"
+version = "0.18.dev7"
 description = "Dynamic Functional Economic Modelling"
 readme = "README.md"
 requires-python = ">=3.8"
