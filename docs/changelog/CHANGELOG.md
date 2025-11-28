@@ -1,7 +1,4 @@
 # Change Log
-
-# Change Log
-
 ## [Unreleased] - 2025-07-31
 
 ### Added
