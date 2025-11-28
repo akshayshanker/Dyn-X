@@ -15,9 +15,7 @@ requires-python = ">=3.8"
 license = {text = "MIT"}
 authors = [
     {name = "Christopher Carroll"},
-    {name = "Alan Lujan"},
     {name = "Akshay Shanker"},
-    {name = "Matthew White"},
 ]
 
 classifiers = [
