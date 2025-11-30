@@ -82,7 +82,6 @@ class CircuitRunner:
         metric_fns: Optional dictionary of functions that compute metrics from a model
         cache: Whether to cache results based on parameter values
         output_root: Parent directory where bundles are written/searched
-        bundle_prefix: First part of every bundle folder name
         save_by_default: If True, every solved model is persisted
         load_if_exists: If True, run() will look for existing bundles and load instead of solving
         hash_len: Number of hex chars to keep from MD5 hash
@@ -105,7 +104,7 @@ class CircuitRunner:
         validate_paths: bool = False,
         # New bundle management parameters
         output_root: Optional[Union[str, Path]] = None,
-        bundle_prefix: str = "run",
+        bundle_prefix: Optional[str] = None,  # DEPRECATED: unused, kept for backward compatibility
         save_by_default: bool = False,
         load_if_exists: bool = False,
         hash_len: int = 8,
@@ -126,7 +125,7 @@ class CircuitRunner:
             cache: Whether to cache results based on parameter values
             validate_paths: Whether to validate that parameter paths exist in the configuration
             output_root: Parent directory for bundle storage. If None, saving is disabled unless save_model=True is passed to run()
-            bundle_prefix: First part of every bundle folder name
+            bundle_prefix: DEPRECATED - this parameter is unused and will be removed in a future version
             save_by_default: If True, every solved model is persisted unless explicitly overridden at call-time
             load_if_exists: If True, run() will first look for an existing bundle and load it instead of solving
             hash_len: Number of hex chars to keep from the MD5 hash of the parameter vector
@@ -154,7 +153,16 @@ class CircuitRunner:
 
         # Bundle management attributes
         self.output_root = Path(output_root).expanduser().resolve() if output_root else None
-        self.bundle_prefix = bundle_prefix
+        # bundle_prefix is deprecated but kept for backward compatibility
+        self.bundle_prefix = bundle_prefix  # Stored but unused in path construction
+        if bundle_prefix is not None:
+            warnings.warn(
+                "`bundle_prefix` argument is deprecated and unused in path construction. "
+                "Bundle paths are determined by output_root, hash, and method only. "
+                "This parameter will be removed in a future version.",
+                DeprecationWarning,
+                stacklevel=2,
+            )
         self.save_by_default = save_by_default
         self.load_if_exists = load_if_exists
         self.hash_len = hash_len
@@ -240,7 +248,7 @@ class CircuitRunner:
 
     def _bundle_path(self, x: np.ndarray) -> Optional[Path]:
         """
-        Build directory path for bundle using output_root, bundle_prefix, and hash_len.
+        Build directory path for bundle using output_root and hash_len.
 
         If method_param_path is set, includes method subdirectory:
         output_root/bundles/<hash>/<METHOD>/
